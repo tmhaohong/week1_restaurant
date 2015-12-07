@@ -1,0 +1,17 @@
+<div class="restaurant-carousel">
+	<ul class="restaurant-carousel-wrapper">
+		<% @carousel_images.each do |image| %>
+		   <li><%= image_tag("#{image.split('/').last}", :alt => "#{image.split('/').last}") %></li>
+		 <% end %>
+	</ul>
+	<div class="restaurant-banner">
+		<h1 class="text-center">Hao Tran</h1>
+		<h3 class="text-center">Restaurant</h3>
+		<nav>
+			<ul>
+				<li><%= link_to("Menu", restaurant_menu_path, {class: "text-center"}) %></li>
+				<li><%= link_to("Contact us", restaurant_contact_path, {class: "text-center"}) %></li>
+			</ul>
+		</nav>
+	</div>
+</div>

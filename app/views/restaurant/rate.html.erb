@@ -1,0 +1,27 @@
+<header>
+  <div class="middle">
+    <%= link_to("Hao Tran", restaurant_index_path, {class: "logo"}) %>
+    <nav>
+      <ul>
+        <li><%= link_to("Menu", restaurant_menu_path) %></li>
+        <li><%= link_to("Contact us", restaurant_contact_path, {class: "text-center"}) %></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<ul class="small-carousel">
+  <% @carousel_images.each do |image| %>
+     <li><%= image_tag("#{image.split('/').last}", :alt => "#{image.split('/').last}") %></li>
+   <% end %>
+</ul>
+
+<div class="middle" id="menu">
+  <h3 class="title"><i class="fa fa-info-circle"></i>Thank you for your rating</h3>
+  
+  <p class="confirmation">
+    You have rated <strong><%= @rate.star %></strong> <% if @rate.star.to_i <= 1 %>star<% else %>stars<% end %> for <strong><%= @food.name %></strong>
+  </p>
+  
+  <%= link_to("Back to Menu", restaurant_menu_path) %>
+</div>

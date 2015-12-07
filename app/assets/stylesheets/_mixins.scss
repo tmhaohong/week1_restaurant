@@ -1,0 +1,43 @@
+@import "variables";
+@import url(https://fonts.googleapis.com/css?family=Pacifico);
+
+@mixin absolute-center($width) {
+  position: absolute;
+  left: calc(50% - (#{$width} / 2));
+}
+@mixin absolute-middle($height) {
+  position: absolute;
+  top: calc(50% - (#{$height} / 2));
+}
+
+@mixin css3-styles($attribute, $value) {
+  @each $vendor in $vendors{
+    -#{$vendor}-#{$attribute}: $value;
+  }
+  #{$attribute}: $value;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.middle{
+  width: 900px;
+  margin: 0 auto;
+  padding: 0 $size-unit-double;
+}
+
+@-webkit-keyframes fade {
+    0% {opacity: 0;}
+    20% {opacity: 1;}
+    33% {opacity: 1;}
+    53% {opacity: 0;}
+    100% {opacity: 0;}
+}
+@keyframes fade {
+    0% {opacity: 0;}
+    20% {opacity: 1;}
+    33% {opacity: 1;}
+    53% {opacity: 0;}
+    100% {opacity: 0;}
+}

@@ -1,0 +1,487 @@
+// Place all the styles related to the restaurant controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "mixins";
+
+.restaurant{
+  &-carousel{
+    &-wrapper{
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      li{
+        @include css3-styles(animation-name, fade);
+        @include css3-styles(animation-iteration-count, infinite);
+        @include css3-styles(animation-duration, 15s);
+        & + li{
+          @include css3-styles(animation-delay, -10s);
+        }
+        & + li + li{
+          @include css3-styles(animation-delay, -5s);
+        }
+      }
+      img{
+        position: absolute;
+        width: 100%;
+        height: 100vh;
+        top: 0;
+        left: 0;
+      }
+    }
+  }
+  &-banner{
+    $width: 500px;
+    $height: 186px;
+    width: $width;
+    height: $height;
+    background: $color-background-fade;
+    box-sizing: border-box;
+    @include absolute-center($width);
+    @include absolute-middle($height);
+    @include css3-styles(border-radius, $size-unit);
+    h1{
+      font: {
+       family: 'Pacifico', cursive;
+       size: $size-text-extreme-large;
+      }
+      line-height: $size-text-extreme-large;
+      padding: 0;
+      margin: $size-unit-double 0 $size-unit-double 0;
+    }
+    h3{
+      padding: 0;
+      margin: 0;
+      font-size: $size-text + 7;
+    }
+    nav{
+      ul{
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        background: $color-text;
+        margin-top: $size-unit-double;
+        @include css3-styles(border-radius, 0 0 $size-unit $size-unit );
+      }
+      li{
+        display: inline-block;
+        vertical-align: top;
+        width: 49.8%;
+        box-sizing: border-box;
+        &:last-child{
+          float: right;
+          a{
+            @include css3-styles(border-radius, 0 0 $size-unit 0 );
+          }
+        }
+      }
+      a {
+        display: block;
+        padding: $size-unit 0;
+        font: {
+          size: $size-text + 3;
+          weight: bold;
+        };
+        color: $color-text;
+        text-decoration: none;
+        background: $color-background;
+        @include css3-styles(transition, all .5s);
+        @include css3-styles(border-radius, 0 0 0 $size-unit );
+        &:hover {
+          background: $color-button-hover;
+        }
+      }
+    }
+  }
+}
+
+header {
+  height: 46px;
+  padding: $size-unit-double 0;
+  .logo {
+    font-family: 'Pacifico', cursive;
+    text-decoration: none;
+    font-size: $size-text-medium;
+    color: $color-text;
+    float: left;
+  }
+  nav {
+    padding-top: 21px;
+    margin-left: 160px;
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: $size-unit;
+    &.actived {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  a {
+    text-decoration: none;
+    color: $color-text;
+  }
+}
+
+.small-carousel {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  li {
+    @include css3-styles(animation-name, fade);
+    @include css3-styles(animation-iteration-count, infinite);
+    @include css3-styles(animation-duration, 15s);
+    & + li{
+      @include css3-styles(animation-delay, -10s);
+    }
+    & + li + li{
+      @include css3-styles(animation-delay, -5s);
+    }
+  }
+  img {
+    position: absolute;
+    width: 100%;
+    top: -50%;
+    left: 0;
+    z-index: -1;
+  }
+}
+
+.title {
+  font-size: $size-text-medium;
+  font-weight: normal;
+  i {
+    margin-right: $size-unit;
+  }
+  .view{
+    font-size: 11px;
+    margin-left: 10px;
+    font-style: italic;
+  }
+}
+
+.contact-address{
+  width: 270px;
+  float: left;
+  height: 400px;
+  h4{
+    font-size: $size-text + 5;
+    margin: 0;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 10px;
+  }
+  p{
+    padding: 0;
+    margin: 10px 0 0 0;
+  }
+  i{
+    width: 20px;
+    margin-right: 10px;
+  }
+  a{
+    text-decoration: none;
+    color: $color-text;
+  }
+}
+.contact-map{
+  margin-left: 300px;
+  display: block;
+  height: 400px;
+  @include css3-styles(border-radius, $size-unit);
+}
+
+.tabs{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 150px;
+  display: inline-block;
+  vertical-align: top;
+  li{
+    margin-bottom: $size-unit;
+  }
+  a{
+    padding: $size-unit;
+    border: 1px solid $color-gray;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    &:hover, &.actived{
+      border: 1px solid $color-button-hover;
+    }
+    &.actived{
+      font-weight: bold;
+    }
+  }
+}
+
+.menu{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  vertical-align: top;
+  float: right;
+  width: 700px;
+  > li{
+    display: none;
+    &.actived{
+      display: block;
+    }
+  }
+}
+
+.menu-items{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  > li{
+    display: inline-block;
+    vertical-align: top;
+    width: 210px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+  a{
+    display: block;
+    position: relative;
+    text-decoration: none;
+    border: 1px solid #fff;
+    color: #333;
+    &:hover {
+      border: 1px solid $color-button-hover;
+    }
+  }
+  img{
+    width: 100%;
+    height: 140px;
+  }
+  h5{
+    margin: 0;
+    padding: 5px 10px;
+    font-size: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 150px;
+    overflow: hidden;
+  }
+  span{
+    color: #d04437;
+    display: block;
+    padding: 0px 10px 10px 10px;
+  }
+  .star{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #fff;
+    padding: 2px 7px;
+    border-radius: 10px;
+    li{
+      display: inline-block;
+      vertical-align: top;
+    }
+    .fa{
+      font-size: 10px;
+    }
+    .fa-star{
+      color: #f6c342;
+    }
+  }
+  .view{
+    position: absolute;
+    bottom: 32px;
+    right: 10px;
+    padding: 0;
+    font-size: 10px;
+    color: #999;
+  }
+}
+
+.food-detail{
+  overflow: hidden;
+  margin-bottom: 30px;
+  .left{
+    width: 500px;
+    float: left;
+    img{
+      width: 100%;
+    }
+    form{
+      width: 500px;
+      fieldset{
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+        padding: 5px 10px;
+        .fa{
+          font-size: 15px;
+        }
+        input{
+          border: none;
+          outline: none;
+          width: 440px;
+          padding: 5px;
+          font-size: 15px;
+        }
+      }
+      input[type="submit"]{
+        border: none;
+        border-radius: 5px;
+        background-color: #f6c342;
+        padding: 5px 10px;
+        color: #333;
+        text-align: center;
+        width: 200px;
+        float: right;
+        cursor: pointer;
+        font-size: 15px;
+      }
+    }
+  }
+  .right{
+    margin-left: 550px;
+    h4{
+      margin: 10px 0 5px 0;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+      span{
+        font-size: 10px;
+        margin-left: 5px;
+        font-style: italic;
+      }
+    }
+  }
+  .star{
+    padding: 0;
+    margin: 0;
+    li{
+      display: inline-block;
+      vertical-align: top;
+    }
+    .fa{
+      font-size: 10px;
+    }
+    .fa-star{
+      color: #f6c342;
+    }
+  }
+  blockquote {
+    background: #f9f9f9;
+    border-left: 10px solid #ccc;
+    margin: 0 0 1.5em 0px;
+    padding: 1em 10px;
+    quotes: "\201C""\201D""\2018""\2019";
+    &:before {
+      color: #ccc;
+      content: open-quote;
+      font-size: 4em;
+      line-height: 0.1em;
+      margin-right: 0.25em;
+      vertical-align: -0.4em;
+    }
+  }
+  .price{
+    font-size: 30px;
+    color: #d04437;
+    display: block;
+  }
+  .customer-review{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    p{
+      padding: 0;
+      margin: 0;
+      font-style: italic;
+    }
+    > li{
+      margin-bottom: 5px;
+    }
+    span{
+      font-size: 10px;
+      color: #999;
+    }
+  }
+  .user-review{
+    .star{
+      direction: rtl;
+      text-align: left;
+      margin: 10px 0;
+      a{
+        cursor: pointer;
+      }
+      li{
+        .fa{
+          font-size: 15px;
+        }
+        .fa-star{
+          display: none;
+        }
+        &:hover, &:hover ~ li, &.actived, &.actived ~ li{
+          .fa-star{
+            display: inline-block;
+          }
+          .fa-star-o{
+            display: none;
+          }
+        }
+      }
+    }
+    form{
+      width: 100%;
+    }
+    input[type="text"]{
+      border: none;
+      margin-bottom: 10px;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 3px 5px;
+      font-size: 13px;
+      border-bottom: 1px solid #999;
+      outline: none;
+    }
+    input[type="submit"]{
+      border: none;
+      border-radius: 5px;
+      background-color: #f6c342;
+      padding: 5px 10px;
+      color: #333;
+      text-align: center;
+      width: 100px;
+      float: right;
+      cursor: pointer;
+      font-size: 13px;
+    }
+  }
+}
+
+.confirmation{
+  font-size: 20px;
+  line-height: 25px;
+  strong{
+    color: #205081;
+  }
+}
+.filter{
+  overflow: hidden;
+  margin-bottom: 20px;
+  padding-right: 23px;
+  form{
+    float: right;
+  }
+}

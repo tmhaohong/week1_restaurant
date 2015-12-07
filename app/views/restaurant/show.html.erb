@@ -1,0 +1,111 @@
+<header>
+  <div class="middle">
+    <%= link_to("Hao Tran", restaurant_index_path, {class: "logo"}) %>
+    <nav>
+      <ul>
+        <li><%= link_to("Menu", restaurant_menu_path) %></li>
+        <li><%= link_to("Contact us", restaurant_contact_path, {class: "text-center"}) %></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<ul class="small-carousel">
+  <% @carousel_images.each do |image| %>
+     <li><%= image_tag("#{image.split('/').last}", :alt => "#{image.split('/').last}") %></li>
+   <% end %>
+</ul>
+
+<div class="middle" id="menu">
+  <h3 class="title"><i class="fa fa-cutlery"></i> <%= @food.name %><span class="view">(<%= @food.view %> <% if @food.view <= 1 %>view<% else %>views<% end %>)</span></h3>
+  <div class="food-detail">
+    <div class="left">
+      <img src="<%= @food.img %>" />  
+      <form action="order/<%= @food.id %>">
+        <h3>Love it, order now</h3>
+        <fieldset>
+          <i class="fa fa-user"></i>
+          <input type="text" name="name" placeholder="Name" />
+        </fieldset>
+        <fieldset>
+          <i class="fa fa-mobile"></i>
+          <input type="text" name="phone" placeholder="Phone" />
+        </fieldset>
+        <fieldset>
+          <i class="fa fa-map-marker"></i>
+          <input type="text" name="address" placeholder="Address" />
+        </fieldset>
+        <input type="submit" value="Order" />
+      </form>
+    </div>
+    <div class="right">
+      <blockquote><%= @food.description %></blockquote>
+      <span class="price"><%= number_to_currency(@food.price, unit: 'VND', precision: 0, format: "%n %u") %></span>
+      
+      <div class="total-star">
+        <h4>Customer reviews</h4>
+        <ul class="star">
+          <% 
+            @stars = FoodStar.where( food_item: @food.id)
+            average_star = @stars.average(:star).to_i
+            (0...5).each do |i|
+          %>
+            <li>
+              <% if i < average_star %>
+                <i class="fa fa-star"></i>
+              <% else %>
+                <i class="fa fa-star-o"></i>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+        <span><%= average_star %> out of 5 stars</span>
+      </div>
+
+      <div class="total-star">
+        <h4>Helpful customer reviews <span>(<%= @stars.size() %> reviews)</span></h4>
+        <ul class="customer-review">
+          <% 
+            @stars.each do |star|
+          %>
+            <li>
+              <ul class="star">
+                <% (0...5).each do |i| %>
+                  <li>
+                    <% if i < star.star %>
+                      <i class="fa fa-star"></i>
+                    <% else %>
+                      <i class="fa fa-star-o"></i>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+              <span>By <%= star.name %></span>
+              <p><%= star.review %></p>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+      <div class="total-star user-review">
+        <h4>Your reviews</h4>
+        <ul class="star" id="user_review">
+          <% (0...5).each do |i| %>
+            <li>
+                <a data-value="<%= (5- i) %>">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star-o"></i>
+                </a>
+            </li>
+          <% end %>
+        </ul>
+        <form action="rate/<%= @food.id %>">
+          <input type="hidden" name="star" value="0" id="user_rating_value"/>
+          <input type="text" name="name" placeholder="Name" />
+          <input type="text" name="review" placeholder="Your comments" />
+          <input type="submit" value="Rate" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

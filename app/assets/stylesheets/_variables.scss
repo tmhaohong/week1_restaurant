@@ -1,0 +1,26 @@
+/*
+  Colors
+*/
+$color-background: #fff;
+$color-background-fade: rgba(255, 255, 255, 0.7);
+$color-text: #333;
+$color-gray: #ccc;
+$color-button-hover: #f6c342;
+
+/*
+  Sizes
+*/
+$size-text: 13px;
+$size-text-extreme-large: $size-text * 5;
+$size-text-large: $size-text * 3;
+$size-text-medium: $size-text * 2;
+$size-text-small: $size-text * 3/4;
+
+$size-unit: 10px;
+$size-unit-double: $size-unit * 2;
+$size-unit-half: $size-unit / 2;
+
+/*
+  Global
+*/
+$vendors: webkit, moz, o

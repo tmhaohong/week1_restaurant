@@ -1,0 +1,88 @@
+<header>
+  <div class="middle">
+    <%= link_to("Hao Tran", restaurant_index_path, {class: "logo"}) %>
+    <nav>
+      <ul>
+        <li class="actived">Menu</li>
+        <li><%= link_to("Contact us", restaurant_contact_path, {class: "text-center"}) %></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<ul class="small-carousel">
+  <% @carousel_images.each do |image| %>
+     <li><%= image_tag("#{image.split('/').last}", :alt => "#{image.split('/').last}") %></li>
+   <% end %>
+</ul>
+
+<div class="middle" id="menu">
+  <h3 class="title"><i class="fa fa-bars"></i>Menu</h3>
+  <div  class="filter">
+    <form action="menu">
+      <label>Sort by</label>
+      <select name="filter">
+        <option value="ab" <% if params["filter"]=="ab" %>selected<% end %>>Alphabetical</option>
+        <option value="lth" <% if params["filter"]=="lth" %>selected<% end %>>Price low to high</option>
+        <option value="htl" <% if params["filter"]=="htl" %>selected<% end %>>Price high to low</option>
+        <option value="mv" <% if params["filter"]=="mv" %>selected<% end %>>Most viewed</option>
+      </select>
+      <input type="submit" value="Sort" />
+    </form>
+  </div>
+
+  <ul class="tabs">
+    <% @sections.each_with_index do |section, index| %>
+      <li>
+        <a <% if index == 0 %>class="actived"<% end %> ><%= section.name %></a>
+      </li>
+    <% end %>  
+  </ul>
+  
+  <ul class="menu">
+    <% @sections.each_with_index do |section, index| %>
+      <li <% if index == 0 %>class="actived"<% end %> >
+        <ul class="menu-items">
+          <%
+            if(params["filter"] == "ab")
+              @foods = FoodItem.where( section: section.id).order(:name)
+            elsif(params["filter"] == "lth")
+              @foods = FoodItem.where( section: section.id).order(:price)
+            elsif(params["filter"] == "htl")
+              @foods = FoodItem.where( section: section.id).order(price: :desc)
+            elsif(params["filter"] == "mv")
+              @foods = FoodItem.where( section: section.id).order(view: :desc)
+            else
+              @foods = FoodItem.where( section: section.id).order(:name)
+            end
+
+            @foods.each do |food|
+          %>
+            <li>
+              <a href="menu/<%= food.id %>">
+                <img src="<%= food.img %>" />
+                <h5><%= food.name %></h5>
+                <ul class="star">
+                  <% 
+                    @stars = FoodStar.where( food_item: food.id).average(:star)
+                    (0...5).each do |i|
+                  %>
+                    <li>
+                      <% if i < @stars.to_i %>
+                        <i class="fa fa-star"></i>
+                      <% else %>
+                        <i class="fa fa-star-o"></i>
+                      <% end %>
+                    </li>
+                  <% end %>
+                </ul>
+                <span><%= number_to_currency(food.price, unit: 'VND', precision: 0, format: "%n %u") %></span>
+                <span class="view"><%= food.view %> <% if food.view <= 1 %>view<% else %>views<% end %></span>
+              </a>
+            </li>
+          <% end %> 
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+</div>
