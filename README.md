@@ -1,4 +1,4 @@
-# Pre-work - *Week1 - Restaurant*
+# Assignment - *Week1 - Restaurant*
 
 **Week1 - Restaurant** is a week1 Ruby on Rails assignment.
 
